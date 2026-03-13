@@ -56,13 +56,13 @@ nav{position:fixed;top:1.4rem;left:0;right:0;z-index:200;display:flex;justify-co
 .d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
 
 /* ── HERO, no gradient, full image ── */
-#hero{min-height:100svh;position:relative;overflow:hidden;display:flex;align-items:center;border-radius:0 0 2.5rem 2.5rem}
+#hero{min-height:100svh;position:relative;overflow:hidden;display:flex;align-items:flex-start;border-radius:0 0 2.5rem 2.5rem}
 .h-bg{position:absolute;inset:0;z-index:0}
 .h-bg img{height:100%;object-fit:cover;object-position:center;transform:scale(1.06);animation:hZoom 18s var(--ease) forwards;will-change:transform}
 @keyframes hZoom{to{transform:scale(1)}}
 /* Minimal vignette only for text legibility, not a colour wash */
 .h-bg::after{display:none}
-.h-inner{position:relative;z-index:2;width:100%;padding:6rem 4.5rem 5rem;display:flex;justify-content:space-between;align-items:center}
+.h-inner{position:relative;z-index:2;width:100%;padding:clamp(6rem,14vh,9rem) 4.5rem 5rem;display:flex;justify-content:space-between;align-items:center}
 .h-text{max-width:640px}
 /* ANNA LANE, crimson, huge */
 .h-name{font-family:var(--F);font-size:clamp(6rem,14vw,13rem);font-weight:600;line-height:.82;color:var(--red);letter-spacing:-.03em;margin-bottom:1.6rem;opacity:0;animation:fU 1s var(--ease) .6s forwards;}
@@ -315,7 +315,7 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
 /* Laptop / mid monitor (≤1280px) */
 @media(max-width:1280px){
   .ct-left{padding:4.5rem 4rem}
-  .h-inner{padding:0 3rem 4.5rem}
+  .h-inner{padding:clamp(6rem,14vh,9rem) 3rem 5rem}
   .h-scroll{right:3rem}
 }
 
@@ -326,7 +326,7 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
   #about{padding:5rem 2rem}
   #credentials{padding:5rem 2rem}
   .ct-left{padding:4rem 3rem}
-  .h-inner{padding:0 2.5rem 4rem}
+  .h-inner{padding:clamp(6rem,13vh,8rem) 2.5rem 4rem}
   .m-layout{grid-template-columns:1fr 240px}
   .m-layout.wide-panel{grid-template-columns:1fr 340px}
   .m-left{padding:2.2rem 2.4rem}
@@ -788,14 +788,12 @@ function bC(e){if(e.target===document.getElementById('mBg'))cM();}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')cM();});
 </script>
 <script>
-window.addEventListener('load',function(){
+document.addEventListener('DOMContentLoaded',function(){
   if(!window.matchMedia('(pointer:fine)').matches)return;
   var c=document.getElementById('cur');
   if(!c)return;
-  // Only hide OS cursor after page is fully loaded
   document.body.classList.add('js-cursor');
-  c.classList.add('c-ready');
-  var lastCheck=0,lastDark=false,lastLink=false;
+  var shown=false,lastCheck=0,lastDark=false,lastLink=false;
   function isDark(el){
     var node=el;
     while(node&&node.nodeType===1){
@@ -814,6 +812,7 @@ window.addEventListener('load',function(){
   }
   document.addEventListener('mousemove',function(e){
     c.style.transform='translate3d('+e.clientX+'px,'+e.clientY+'px,0)';
+    if(!shown){shown=true;c.classList.add('c-ready');}
     // Throttle the expensive getComputedStyle check to every 120ms
     var now=Date.now();
     if(now-lastCheck>120){
