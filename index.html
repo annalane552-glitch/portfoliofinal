@@ -23,12 +23,6 @@ img{display:block;width:100%;object-fit:cover;-webkit-user-drag:none;user-select
 a{text-decoration:none;color:inherit}
 
 /* ── CURSOR ── */
-#cur{position:fixed;width:8px;height:8px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s;mix-blend-mode:multiply}
-#cur-ring{position:fixed;width:32px;height:32px;border:1.5px solid rgba(77,0,17,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),border-color .3s}
-body:has(a:hover) #cur,body:has(button:hover) #cur,body:has(.p-card:hover) #cur{width:18px;height:18px;background:var(--gold)}
-body:has(a:hover) #cur-ring,body:has(button:hover) #cur-ring,body:has(.p-card:hover) #cur-ring{width:48px;height:48px;border-color:var(--gold)}
-@media(max-width:768px){#cur,#cur-ring{display:none}body{cursor:auto}}
-
 /* ── NAV ── */
 nav{position:fixed;top:1.4rem;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0 2.8rem;pointer-events:none}
 .n-logo{font-family:var(--F);font-size:1.25rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--red);background:rgba(245,240,232,.95);backdrop-filter:blur(20px);padding:.9rem 2.1rem;border-radius:50px;border:1px solid rgba(77,0,17,.13);pointer-events:all;transition:all .4s var(--ease)}
@@ -399,25 +393,26 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
 }
 /* ── CUSTOM CURSOR ── */
 @media(pointer:fine){
-  *{cursor:none!important}
-  #siteCursor{
+  .js-cursor *{cursor:none!important}
+  #cur{
     position:fixed;left:0;top:0;
     width:10px;height:10px;border-radius:50%;
     margin:-5px 0 0 -5px;
     pointer-events:none;z-index:99999;
     background:var(--ink);
     will-change:transform;
-    transition:background .18s ease,opacity .2s;
+    transition:background .2s ease,opacity .15s;
+    opacity:0;
   }
-  #siteCursor.sc-dark{background:var(--cream)}
-  #siteCursor.sc-link{background:var(--gold)}
+  #cur.c-ready{opacity:1}
+  #cur.c-dark{background:var(--cream)}
+  #cur.c-link{background:var(--gold)}
 }
 
 </style>
 </head>
 <body>
-<div id="siteCursor"></div>
-<div id="cur"></div><div id="cur-ring"></div>
+<div id="cur"></div>
 
 <nav>
   <a href="#hero" class="n-logo">Anna Lane</a>
@@ -698,12 +693,6 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 document.body.classList.add('js-on');
-/* CURSOR */
-const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-(function tick(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
-
 /* NAV */
 const nb=document.getElementById('nb'),mob=document.getElementById('mob');
 nb.addEventListener('click',()=>{nb.classList.toggle('o');mob.classList.toggle('o');document.body.style.overflow=mob.classList.contains('o')?'hidden':''});
@@ -799,9 +788,14 @@ function bC(e){if(e.target===document.getElementById('mBg'))cM();}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')cM();});
 </script>
 <script>
-(function(){
-  var c=document.getElementById('siteCursor');
-  if(!c||!window.matchMedia('(pointer:fine)').matches)return;
+window.addEventListener('load',function(){
+  if(!window.matchMedia('(pointer:fine)').matches)return;
+  var c=document.getElementById('cur');
+  if(!c)return;
+  // Only hide OS cursor after page is fully loaded
+  document.body.classList.add('js-cursor');
+  c.classList.add('c-ready');
+  var lastCheck=0,lastDark=false,lastLink=false;
   function isDark(el){
     var node=el;
     while(node&&node.nodeType===1){
@@ -820,16 +814,22 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')cM();});
   }
   document.addEventListener('mousemove',function(e){
     c.style.transform='translate3d('+e.clientX+'px,'+e.clientY+'px,0)';
-    var el=document.elementFromPoint(e.clientX,e.clientY);
-    if(!el)return;
-    var dark=isDark(el);
-    c.classList.toggle('sc-dark',dark);
-    var isLink=!!(el.closest&&el.closest('a,button,[onclick]'));
-    c.classList.toggle('sc-link',isLink);
+    // Throttle the expensive getComputedStyle check to every 120ms
+    var now=Date.now();
+    if(now-lastCheck>120){
+      lastCheck=now;
+      var el=document.elementFromPoint(e.clientX,e.clientY);
+      if(el){
+        lastDark=isDark(el);
+        lastLink=!!(el.closest&&el.closest('a,button,[onclick]'));
+      }
+    }
+    c.classList.toggle('c-dark',lastDark);
+    c.classList.toggle('c-link',lastLink);
   });
   document.addEventListener('mouseleave',function(){c.style.opacity='0'});
   document.addEventListener('mouseenter',function(){c.style.opacity='1'});
-})();
+});
 </script>
 </body>
 </html>
