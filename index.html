@@ -56,18 +56,18 @@ nav{position:fixed;top:1.4rem;left:0;right:0;z-index:200;display:flex;justify-co
 .d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
 
 /* ── HERO, no gradient, full image ── */
-#hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:stretch;border-radius:0 0 2.5rem 2.5rem}
+#hero{height:100vh;min-height:600px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;padding-top:80px;border-radius:0 0 2.5rem 2.5rem}
 .h-bg{position:absolute;inset:0;z-index:0}
 .h-bg img{height:100%;object-fit:cover;object-position:center;transform:scale(1.06);animation:hZoom 18s var(--ease) forwards;will-change:transform}
 @keyframes hZoom{to{transform:scale(1)}}
 /* Minimal vignette only for text legibility, not a colour wash */
 .h-bg::after{display:none}
-.h-inner{position:relative;z-index:2;width:100%;padding:8rem 4.5rem 5rem;display:flex;justify-content:space-between;align-items:center}
+.h-inner{position:relative;z-index:2;width:100%;padding:2rem 4.5rem 4rem;display:flex;justify-content:space-between;align-items:center}
 .h-text{max-width:640px}
 /* ANNA LANE, crimson, huge */
-.h-name{font-family:var(--F);font-size:clamp(3rem,8vh,6rem);font-weight:600;line-height:.82;color:var(--red);letter-spacing:-.03em;margin-bottom:1.6rem;opacity:0;animation:fU 1s var(--ease) .6s forwards;}
+.h-name{font-family:var(--F);font-size:clamp(60px,12vh,150px);font-weight:600;line-height:.95;color:var(--red);letter-spacing:-.03em;margin:0 0 1.5rem 0;opacity:0;animation:fU 1s var(--ease) .6s forwards;}
 /* Tagline, bigger, cream so it reads on dark vignette */
-.h-tag{font-family:var(--F);font-size:clamp(1.4rem,2.6vw,2.2rem);font-weight:400;font-style:italic;color:var(--red);border-left:2.5px solid var(--gold);padding-left:1.2rem;line-height:1.4;margin-bottom:3rem;opacity:0;animation:fU .9s var(--ease) .95s forwards}
+.h-tag{font-family:var(--F);font-size:clamp(18px,2vh,24px);font-weight:400;font-style:italic;color:var(--red);border-left:2.5px solid var(--gold);padding-left:1.2rem;line-height:1.4;margin-bottom:3rem;opacity:0;animation:fU .9s var(--ease) .95s forwards}
 .h-cta{display:inline-flex;align-items:center;gap:.8rem;background:var(--red);color:var(--cream);padding:1.2rem 2.9rem;border-radius:50px;font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;position:relative;overflow:hidden;opacity:0;animation:fU .9s var(--ease) 1.2s forwards;transition:color .4s var(--ease)}
 .h-cta::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
 .h-cta:hover{color:var(--red-d)}.h-cta:hover::before{transform:scaleX(1)}
@@ -315,7 +315,7 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
 /* Laptop / mid monitor (≤1280px) */
 @media(max-width:1280px){
   .ct-left{padding:4.5rem 4rem}
-  .h-inner{padding:8rem 3rem 5rem}
+  .h-inner{padding:2rem 3rem 4rem}
   .h-scroll{right:3rem}
 }
 
@@ -326,7 +326,7 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
   #about{padding:5rem 2rem}
   #credentials{padding:5rem 2rem}
   .ct-left{padding:4rem 3rem}
-  .h-inner{padding:8rem 2.5rem 4rem}
+  .h-inner{padding:2rem 2.5rem 3.5rem}
   .m-layout{grid-template-columns:1fr 240px}
   .m-layout.wide-panel{grid-template-columns:1fr 340px}
   .m-left{padding:2.2rem 2.4rem}
