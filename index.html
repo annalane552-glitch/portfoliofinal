@@ -410,6 +410,13 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
 }
 
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments)}
+  (function(){if(location.search.includes("notrack=1"))localStorage.setItem("_notrack","1")})();
+  if(localStorage.getItem("_notrack")!=="1"){gtag("js",new Date());gtag("config","G-XXXXXXXXXX",{anonymize_ip:true,send_page_view:true});}
+</script>
 </head>
 <body>
 <div id="cur"></div>
@@ -829,6 +836,38 @@ document.addEventListener('DOMContentLoaded',function(){
   document.addEventListener('mouseleave',function(){c.style.opacity='0'});
   document.addEventListener('mouseenter',function(){c.style.opacity='1'});
 });
+</script>
+<script>
+(function(){
+  var notrack=localStorage.getItem("_notrack")==="1";
+  function track(name,params){
+    if(notrack)return;
+    if(typeof gtag==="function")gtag("event",name,params||{});
+    if(window.va)window.va("event",{name:name,data:params||{}});
+  }
+  var _oM=window.oM;
+  var cs={hf:"HelloFresh x Qantas",un:"United Nations",pp:"Paddy Power",or:"Oracle",cc:"Chancer Clothing",al:"Anna Lane"};
+  window.oM=function(id){if(_oM)_oM(id);track("case_study_open",{case_study:cs[id]||id});};
+  document.addEventListener("DOMContentLoaded",function(){
+    var cv=document.getElementById("cvBtn");
+    if(cv)cv.addEventListener("click",function(){track("cv_download",{});});
+    document.querySelectorAll(".ct-val[href]").forEach(function(a){
+      if(a.href&&a.href.includes("mail.google"))a.addEventListener("click",function(){track("contact_email",{});});
+      if(a.href&&a.href.includes("linkedin"))a.addEventListener("click",function(){track("contact_linkedin",{});});
+    });
+    document.querySelectorAll("nav a,.mob a").forEach(function(a){a.addEventListener("click",function(){track("nav_click",{section:a.textContent.trim()});});});
+    var cta=document.querySelector(".h-cta");
+    if(cta)cta.addEventListener("click",function(){track("hero_cta_click",{});});
+    var depths=[25,50,75,90],fired={};
+    window.addEventListener("scroll",function(){
+      var sc=document.body.scrollHeight-window.innerHeight;
+      if(sc<=0)return;
+      var pct=Math.round(window.scrollY/sc*100);
+      depths.forEach(function(d){if(pct>=d&&!fired[d]){fired[d]=true;track("scroll_depth",{percent:d});}});
+    },{passive:true});
+    [60,180,300].forEach(function(s){setTimeout(function(){track("time_on_page",{seconds:s});},s*1000);});
+  });
+})();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
