@@ -343,10 +343,10 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
 }
 
 /* Mobile hero fix (≤768px) */
-/* Mobile hero: contain image so butter is proportionate and text is clear */
+/* Mobile hero: full-bleed cover, gradient shields text from butter overlap */
 @media(max-width:768px){
-  .h-bg{background:var(--cream)}
-  .h-bg img{object-fit:contain;object-position:right center;transform:none;animation:none}
+  .h-bg img{object-fit:cover;object-position:62% center}
+  .h-bg::after{display:block;content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(245,240,232,.92) 30%,rgba(245,240,232,.45) 52%,transparent 72%)}
 }
 
 /* Mobile large (≤600px) */
