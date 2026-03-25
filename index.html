@@ -342,6 +342,18 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
   .m-layout.wide-panel{grid-template-columns:1fr 280px}
 }
 
+/* Mobile hero fix (≤768px) */
+@media(max-width:768px){
+  #hero{background:var(--cream)}
+  .h-bg{position:absolute;top:0;right:0;bottom:0;left:auto;width:58%}
+  .h-bg img{object-position:center center}
+  .h-text{max-width:48%}
+  .h-name{font-size:clamp(2.4rem,9vw,4rem)}
+  .h-tag{font-size:clamp(1rem,3.5vw,1.4rem)}
+  .h-inner{padding:5rem 1.8rem 3rem}
+  .h-badge{display:none}
+}
+
 /* Mobile large (≤600px) */
 @media(max-width:600px){
   #work{padding:3.5rem 1.2rem}
