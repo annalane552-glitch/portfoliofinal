@@ -343,15 +343,9 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
 }
 
 /* Mobile hero fix (≤768px) */
+/* Pull butter into view on mobile — no other layout changes */
 @media(max-width:768px){
-  #hero{background:var(--cream)}
-  .h-bg{position:absolute;top:0;right:0;bottom:0;left:auto;width:58%}
-  .h-bg img{object-position:center center}
-  .h-text{max-width:48%}
-  .h-name{font-size:clamp(2.4rem,9vw,4rem)}
-  .h-tag{font-size:clamp(1rem,3.5vw,1.4rem)}
-  .h-inner{padding:5rem 1.8rem 3rem}
-  .h-badge{display:none}
+  .h-bg img{object-position:78% center}
 }
 
 /* Mobile large (≤600px) */
@@ -380,8 +374,7 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
 /* Mobile small (≤480px) */
 @media(max-width:480px){
   #hero{border-radius:0}
-  .h-bg img{object-position:72% center}
-  .h-bg img{object-position:72% center}
+  .h-bg img{object-position:78% center}
   .h-inner{padding:0 1.2rem 3rem}
   .h-scroll{display:none}
   .h-badge{width:80px;height:80px}
