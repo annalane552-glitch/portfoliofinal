@@ -343,9 +343,10 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
 }
 
 /* Mobile hero fix (≤768px) */
-/* Pull butter into view on mobile — no other layout changes */
+/* Mobile hero: contain image so butter is proportionate and text is clear */
 @media(max-width:768px){
-  .h-bg img{object-position:78% center}
+  .h-bg{background:var(--cream)}
+  .h-bg img{object-fit:contain;object-position:right center;transform:none;animation:none}
 }
 
 /* Mobile large (≤600px) */
@@ -374,7 +375,6 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
 /* Mobile small (≤480px) */
 @media(max-width:480px){
   #hero{border-radius:0}
-  .h-bg img{object-position:78% center}
   .h-inner{padding:0 1.2rem 3rem}
   .h-scroll{display:none}
   .h-badge{width:80px;height:80px}
