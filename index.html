@@ -342,11 +342,14 @@ footer p{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgb
   .m-layout.wide-panel{grid-template-columns:1fr 280px}
 }
 
-/* Mobile hero fix (≤768px) */
-/* Mobile hero: full-bleed cover, gradient shields text from butter overlap */
+/* Mobile hero: text top-left, butter panel bottom-right */
 @media(max-width:768px){
-  .h-bg img{object-fit:cover;object-position:62% center}
-  .h-bg::after{display:block;content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(245,240,232,.92) 30%,rgba(245,240,232,.45) 52%,transparent 72%)}
+  #hero{background:var(--cream)}
+  .h-bg{top:auto;left:auto;right:0;bottom:0;width:80%;height:62%;border-radius:1.2rem 0 2.5rem 0}
+  .h-bg img{object-fit:cover;object-position:center 25%;transform:none;animation:none}
+  .h-bg::after{display:none}
+  .h-inner{align-items:flex-start;padding:5.5rem 1.8rem 2rem}
+  .h-scroll{display:none}
 }
 
 /* Mobile large (≤600px) */
